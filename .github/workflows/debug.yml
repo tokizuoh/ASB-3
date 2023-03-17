@@ -1,0 +1,16 @@
+name: debug
+
+on:
+  push
+
+jobs:
+  exit_1:
+    runs-on: ubuntu-latest
+    steps:
+      - run: exit 1
+  show-commit-hash:
+    runs-on: ubuntu-latest
+    steps:
+      - name: show commit hash
+        run: echo ${{ github.sha }}
+

@@ -1,0 +1,31 @@
+version: 2.1
+
+executors:
+  my-executor:
+    docker:
+      - image: cimg/base:stable
+
+parameters:
+  run_heavy_success_workflow:
+    type: boolean
+    default: false
+
+jobs:
+  ios-ci:
+    executor: my-executor
+    steps:
+      - run: "echo success!"
+  ios-heavy-ci:
+    executor: my-executor
+    steps:
+      - run: "sleep 60"
+      - run: "echo success! (heavy)"
+
+workflows:
+  ios-success-workflow:
+    jobs:
+      - ios-ci
+  ios-heavy-success-workflow:
+    when: << pipeline.parameters.run_heavy_success_workflow >>
+    jobs:
+      - ios-heavy-ci
